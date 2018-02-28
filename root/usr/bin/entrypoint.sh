@@ -26,6 +26,7 @@ fi
 
 case $CMD in
     "unifi_controller_start")
+        init_unifi_ctl
         unifictl start
         ;;
     *)
