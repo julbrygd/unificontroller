@@ -26,7 +26,14 @@ init_unifi_ctl() {
 unifictl(){
     OLD_DIR=$(pwd)
     cd /srv/unifi
-    java -jar lib/ace.jar $*
+    exec java \
+        -dunifi.datadir=/var/lib/unifi \
+        -dunifi.rundir=/var/run/unifi \
+        -dunifi.logdir=/var/log/unifi \
+        -Xmx1024M \
+        -Djava.awt.headless=true \
+        -Dfile.encoding=UTF-8 \
+        -jar lib/ace.jar $*
     cd $OLD_DIR
 }
 
