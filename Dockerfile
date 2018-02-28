@@ -35,4 +35,4 @@ RUN apk -U add --no-cache libstdc++ && \
 
 
 ENTRYPOINT "/usr/bin/entrypoint.sh"
-CMD ["unifictl", "start"]
+CMD ["unifi_controller_start"]
