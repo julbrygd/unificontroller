@@ -7,5 +7,5 @@ if [[ -d /etc/docker.entrypoint.d ]]; then
 fi
 
 for CALL_FUNC in $ENTRYPOINT_FUNCS; do
-    $CALL_FUNC $*
+    echo $CALL_FUNC
 done
