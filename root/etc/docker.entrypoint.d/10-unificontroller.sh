@@ -27,9 +27,9 @@ unifictl(){
     OLD_DIR=$(pwd)
     cd /srv/unifi
     exec java \
-        -dunifi.datadir=/var/lib/unifi \
-        -dunifi.rundir=/var/run/unifi \
-        -dunifi.logdir=/var/log/unifi \
+        -Dunifi.datadir=/var/lib/unifi \
+        -Dunifi.rundir=/var/run/unifi \
+        -Dunifi.logdir=/var/log/unifi \
         -Xmx1024M \
         -Djava.awt.headless=true \
         -Dfile.encoding=UTF-8 \
