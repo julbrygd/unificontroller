@@ -8,7 +8,8 @@ init_unifi_ctl() {
         done
         kill $(ps|grep [j]ava|awk '{ print $1}')
     fi
-    sed '/\#START_UNIFI_MONGO_DB_DOCKER_CONF/,/\#END_UNIFI_MONGO_DB_DOCKER_CONF/d' /var/lib/unifi/system.properties
+    mv /var/lib/unifi/system.properties /var/lib/unifi/system.properties.org
+    sed '/\#START_UNIFI_MONGO_DB_DOCKER_CONF/,/\#END_UNIFI_MONGO_DB_DOCKER_CONF/d' /var/lib/unifi/system.properties.org > /var/lib/unifi/system.properties
     echo "#START_UNIFI_MONGO_DB_DOCKER_CONF" >> /var/lib/unifi/system.properties
     echo "db.mongo.local=false" >> /var/lib/unifi/system.properties
     if [[ "${UNIFI_MONGO_DB_USE_AUTH}" == "FALSE" ]]; then
