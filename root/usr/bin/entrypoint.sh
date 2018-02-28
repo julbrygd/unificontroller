@@ -25,8 +25,8 @@ if [[ ${#@} -gt 0 ]]; then
 fi
 
 case $CMD in
-    "unifictl")
-        unifictl $@
+    "unifi_controller_start")
+        unifictl start
         ;;
     *)
         exec $CMD $@
