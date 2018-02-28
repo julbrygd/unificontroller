@@ -2,8 +2,10 @@
 
 init_unifi_ctl() {
     if [[ ! -e /var/lib/unifi/system.properties ]]; then
-        unifictl start &
-        sleep 1
+        unifictl start > /dev/null &
+        while [[ ! -e /var/lib/unifi/system.properties ]]; do
+            sleep 1
+        done
         kill $(ps|grep [j]ava|awk '{ print $1}')
     fi
     sed '/\#START_UNIFI_MONGO_DB_DOCKER_CONF/,/\#END_UNIFI_MONGO_DB_DOCKER_CONF/d' /var/lib/unifi/system.properties
@@ -22,7 +24,6 @@ init_unifi_ctl() {
 
 unifictl(){
     OLD_DIR=$(pwd)
-    init_unifi_ctl
     cd /srv/unifi
     java -jar lib/ace.jar $*
     cd $OLD_DIR

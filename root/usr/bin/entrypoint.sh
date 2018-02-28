@@ -1,7 +1,5 @@
 #!/bin/sh
 
-set -x
-
 check_is_func(){
 	type $1
     type "$1" 2> /dev/null|grep "is a shell function" > /dev/null 2>&1

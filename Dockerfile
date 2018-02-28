@@ -20,7 +20,7 @@ ENV UNIFI_MONGO_DB_HOST="mongo" \
 	UNIFI_MONGO_DB_PASS="" \
 	UNIFI_MONGO_DB_NAME="ace" \
 	UNIFI_MONGO_DB_STAT_NAME="ace-stat" \
-	UNIFI_MONGO_DB_PORT=""
+	UNIFI_MONGO_DB_PORT="27017"
 
 COPY --from=build /data/UniFi /srv/unifi
 COPY root/ /
