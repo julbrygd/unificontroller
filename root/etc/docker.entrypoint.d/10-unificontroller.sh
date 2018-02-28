@@ -47,7 +47,7 @@ wait_for_mongo_db(){
         sleep 1
         nc -z ${UNIFI_MONGO_DB_HOST} ${UNIFI_MONGO_DB_PORT} > /dev/null 2>&1
         MONGO_RUNNING=$?
-        if [[ $COUNTER -gt ${UNIFI_MONGO_DB_WAIT_TIMEOUT} ]]; then
+        if [[ $COUNTER -ge ${UNIFI_MONGO_DB_WAIT_TIMEOUT} ]]; then
             MONGO_RUNNING=10
             echo "ERROR: MongoDB still not running after timeout of ${UNIFI_MONGO_DB_WAIT_TIMEOUT}s"
         fi
