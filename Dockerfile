@@ -15,4 +15,16 @@ FROM frolvlad/alpine-oraclejdk8:latest
 LABEL maintainer="Stephan Conrad <stephan@conrad.pics>"
 
 COPY --from=build /data/UniFi /srv/unifi
-RUN apk -U add --no-cache libstdc++
+COPY root/ /
+RUN apk -U add --no-cache libstdc++ && \
+	mkdir /var/lib/unifi && \
+	ln -s /var/lib/unifi /srv/unifi/data && \
+	mkdir /var/log/unifi && \
+	ln -s /var/log/unifi /srv/unifi/logs && \
+	ln -s /dev/stdout /srv/unifi/logs/server.log && \
+	mkdir /var/run/unifi && \
+	ln -s /var/run/unifi /srv/unifi/run
+
+
+ENTRYPOINT "/usr/bin/entrypoint.sh"
+CMD ["unifictl", "start"]
