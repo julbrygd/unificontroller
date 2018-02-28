@@ -17,8 +17,6 @@ if [[ -d /etc/docker.entrypoint.d ]]; then
     done
 fi
 
-echo $CALL_unifictl
-
 CMD=$1
 CMD_VAR="CALL_${CMD}"
 if [[ ${#@} -gt 0 ]]; then
@@ -29,7 +27,7 @@ type "\$${CMD_VAR}" 2> /dev/null|grep "is a shell function" > /dev/null 2>&1
 FUNC_EXISTS=$?
 
 if [[ $FUNC_EXISTS -eq 0 ]]; then
-    exec $CMD_VAR $@
+    $CMD_VAR $@
 else
     exec $CMD $@
 fi
