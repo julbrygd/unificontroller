@@ -1,13 +1,14 @@
 FROM alpine as build
 ENV UNIFI_VERSION=5.6.30
 
-RUN apk -U add --no-cache -t build-deps binutils curl && \
+RUN apk -U add --no-cache -t build-deps binutils curl mongodb && \
 	mkdir /data && \
 	cd /data && \
 	curl -OL https://dl.ubnt.com/unifi/${UNIFI_VERSION}/UniFi.unix.zip && \
 	curl -OL https://dl.ubnt.com/unifi/${UNIFI_VERSION}/unifi_sh_api && \
 	unzip UniFi.unix.zip && \
 	mv unifi_sh_api UniFi/bin/ && \
+	cp /usr/bin/mongo UniFi/bin/
 	apk --no-cache del build-deps 
 	
 
@@ -20,7 +21,8 @@ ENV UNIFI_MONGO_DB_HOST="mongo" \
 	UNIFI_MONGO_DB_PASS="" \
 	UNIFI_MONGO_DB_NAME="ace" \
 	UNIFI_MONGO_DB_STAT_NAME="ace-stat" \
-	UNIFI_MONGO_DB_PORT="27017"
+	UNIFI_MONGO_DB_PORT="27017" \
+	UNIFI_MONGO_DB_WAIT_TIMEOUT="60"
 
 COPY --from=build /data/UniFi /srv/unifi
 COPY root/ /

@@ -29,3 +29,21 @@ unifictl(){
     java -jar lib/ace.jar $*
     cd $OLD_DIR
 }
+
+wait_for_mongo_db(){
+    COUNTER=0
+    nc -z ${UNIFI_MONGO_DB_HOST} $UNIFI_MONGO_DB_PORT{} > /dev/null 2>&1
+    MONGO_RUNNING=$?
+    while [[ $MONGO_RUNNING -eq 1 ]]; do
+        echo "MongoDB on host ${UNIFI_MONGO_DB_HOST} with port ${UNIFI_MONGO_DB_PORT} is not running. Waiting 1s ..."
+        COUNTER=$(expr ${COUNTER} + 1)
+        sleep 1
+        nc -z ${UNIFI_MONGO_DB_HOST} ${UNIFI_MONGO_DB_PORT} > /dev/null 2>&1
+        MONGO_RUNNING=$?
+        if [[ $COUNTER -gt ${UNIFI_MONGO_DB_WAIT_TIMEOUT} ]]; then
+            MONGO_RUNNING=10
+            echo "ERROR: MongoDB still not running after timeout of ${UNIFI_MONGO_DB_WAIT_TIMEOUT}s"
+        fi
+    done
+    return $MONGO_RUNNING
+}
