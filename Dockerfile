@@ -14,6 +14,14 @@ RUN apk -U add --no-cache -t build-deps binutils curl && \
 FROM frolvlad/alpine-oraclejdk8:latest
 LABEL maintainer="Stephan Conrad <stephan@conrad.pics>"
 
+ENV UNIFI_MONGO_DB_HOST="mongo" \
+	UNIFI_MONGO_DB_USE_AUTH="FALSE" \
+	UNIFI_MONGO_DB_USER="" \
+	UNIFI_MONGO_DB_PASS="" \
+	UNIFI_MONGO_DB_NAME="ace" \
+	UNIFI_MONGO_DB_STAT_NAME="ace-stat" \
+	UNIFI_MONGO_DB_PORT=""
+
 COPY --from=build /data/UniFi /srv/unifi
 COPY root/ /
 RUN apk -U add --no-cache libstdc++ && \
