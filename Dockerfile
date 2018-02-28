@@ -34,6 +34,8 @@ RUN apk -U add --no-cache libstdc++ && \
 	mkdir /var/run/unifi && \
 	ln -s /var/run/unifi /srv/unifi/run
 
+EXPOSE 3478/udp 6789/tcp 8080/tcp 8443/tcp 8843/tcp 8880/tcp 8881/tcp 8882/tcp
+VOLUME /var/lib/unifi
 
 ENTRYPOINT ["/usr/bin/entrypoint.sh"]
 CMD ["unifi_controller_start"]
