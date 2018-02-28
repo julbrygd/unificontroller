@@ -5,5 +5,3 @@ unifictl(){
     cd /srv/unifi
     java -jar lib/ace.jar $*
 }
-
-export CALL_unifictl="unifictl"
