@@ -29,7 +29,7 @@ type "\$${CMD_VAR}" 2> /dev/null|grep "is a shell function" > /dev/null 2>&1
 FUNC_EXISTS=$?
 
 if [[ $FUNC_EXISTS -eq 0 ]]; then
-    $CMD_VAR $@
+    exec $CMD_VAR $@
 else
-    $CMD $@
+    exec $CMD $@
 fi
