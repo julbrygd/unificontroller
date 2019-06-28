@@ -1,5 +1,5 @@
 FROM alpine as build
-ENV UNIFI_VERSION=5.9.29
+ENV UNIFI_VERSION=5.10.25
 
 RUN apk -U add --no-cache -t build-deps binutils curl && \
 	mkdir /data && \
