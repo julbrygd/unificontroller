@@ -11,7 +11,7 @@ RUN apk -U add --no-cache -t build-deps binutils curl && \
 	apk --no-cache del build-deps 
 	
 
-FROM frolvlad/alpine-oraclejdk8:latest
+FROM frolvlad/alpine-java:jdk8-full
 LABEL maintainer="Stephan Conrad <stephan@conrad.pics>"
 
 ENV UNIFI_MONGO_DB_HOST="mongo" \
